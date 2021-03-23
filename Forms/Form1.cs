@@ -56,12 +56,11 @@ namespace Forms
                 eSexo s = eSexo.Mujer;
                 eSexo sOp = eSexo.Hombre;
 
-                if (f2.validateTbNombre.Valido && f2.validateTbEdad.Valido && f2.textBox1.Text.Length > 0)
-                {
-                    bool afic = Enum.TryParse(f2.cbAficciones.SelectedItem.ToString(), out af);
-                    bool sexo = Enum.TryParse(f2.rbSexoH.Checked ? f2.rbSexoH.Text : f2.rbSexoM.Text, out s);
-                    bool sexoOp = Enum.TryParse(f2.rbSexoOpH.Checked ? f2.rbSexoOpH.Text : f2.rbSexoOpM.Text, out sOp);
-
+                if (f2.validateTbNombre.Valido && f2.validateTbEdad.Valido && f2.textBox1.Text.Length > 0
+                    && Enum.TryParse(f2.cbAficciones.SelectedItem.ToString(), out af) 
+                    && Enum.TryParse(f2.rbSexoH.Checked ? f2.rbSexoH.Text : f2.rbSexoM.Text, out s)
+                    && Enum.TryParse(f2.rbSexoOpH.Checked ? f2.rbSexoOpH.Text : f2.rbSexoOpM.Text, out sOp))
+                {                    
                     frikis.Add(new sFriki(f2.validateTbNombre.Texto, Int32.Parse(f2.validateTbEdad.Texto),
                         af, s, sOp, f2.textBox1.Text));
                     listBox1.Items.Add(f2.validateTbNombre.Texto);
@@ -83,7 +82,7 @@ namespace Forms
 
                 for (int i = 0; i < frikis.Count; i++)
                 {
-                    if (listBox1.SelectedIndex != -1 && frikis[i].Nombre == listBox1.SelectedItem.ToString())
+                    if (frikis[i].Nombre == listBox1.SelectedItem.ToString())
                     {
                         pictureBox1.Image = new Bitmap(frikis[i].Foto);
                         toolTip1.SetToolTip(pictureBox1, frikis[i].Nombre + "\n" + frikis[i].Edad + "\n" + frikis[i].Aficion);   
